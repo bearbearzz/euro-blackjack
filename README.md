@@ -11,4 +11,15 @@
 莊家軟 17 停牌。開局兩張可投降。
 
 ## 參考
-![歐式 21 點基本策略表](chart.png)
+<img src="chart.png" alt="歐式 21 點基本策略表" width="500">
+
+| 代號 | 說明 |
+| --- | --- |
+| **H** | Hit |
+| **S** | Stand |
+| **SP** | Split |
+| **D** | Double if allowed, otherwise Hit |
+| **Ds** | Double if allowed, otherwise Stand |
+| **X/H** | Surrender if allowed, otherwise Hit |
+
+
