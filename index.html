@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#07432a">
+  <meta name="description" content="歐式 21 點基本策略練習，對照自製策略表，可離線使用。">
+  <title>歐式 21 點練習</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>歐式 21 點練習</h1>
+    <nav class="tabs" role="tablist">
+      <button role="tab" id="tabbtn-play" data-tab="play" aria-selected="true">練習</button>
+      <button role="tab" id="tabbtn-chart" data-tab="chart" aria-selected="false">策略表</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- 練習 -->
+    <section id="tab-play" class="panel" role="tabpanel" aria-labelledby="tabbtn-play">
+      <div class="table">
+        <div class="area">
+          <div class="area-label">莊家 <span id="dealer-total" class="total"></span></div>
+          <div id="dealer-cards" class="cards"></div>
+        </div>
+
+        <div id="message" class="message"></div>
+
+        <div class="area">
+          <div id="player-hands" class="hands"></div>
+        </div>
+      </div>
+
+      <ol id="feedback" class="feedback" aria-live="polite"></ol>
+
+      <div id="action-controls" class="btn-row actions">
+        <button class="btn" data-act="H">要牌 <kbd>H</kbd></button>
+        <button class="btn" data-act="S">停牌 <kbd>S</kbd></button>
+        <button class="btn" data-act="D">加倍 <kbd>D</kbd></button>
+        <button class="btn" data-act="P">分牌 <kbd>P</kbd></button>
+        <button class="btn" data-act="R">投降 <kbd>R</kbd></button>
+      </div>
+      <div id="next-controls" class="btn-row" hidden>
+        <button id="btn-next" class="btn primary wide">下一手 <kbd>Enter</kbd></button>
+      </div>
+
+      <div class="options">
+        <label>題型
+          <select id="opt-kind">
+            <option value="any">全部隨機</option>
+            <option value="hard">只練硬牌</option>
+            <option value="soft">只練軟牌（A,x）</option>
+            <option value="pair">只練對子</option>
+          </select>
+        </label>
+        <button id="btn-peek" class="btn ghost small-btn">看策略表</button>
+      </div>
+
+      <div class="stats-row">
+        <span>答題 <b id="st-total">0</b></span>
+        <span>正確率 <b id="st-acc">—</b></span>
+        <span>連續答對 <b id="st-streak">0</b></span>
+        <span>最佳紀錄 <b id="st-best">0</b></span>
+        <button id="btn-reset" class="link">重設統計</button>
+      </div>
+    </section>
+
+    <!-- 策略表 -->
+    <section id="tab-chart" class="panel" role="tabpanel" aria-labelledby="tabbtn-chart" hidden>
+      <figure class="chart-figure">
+        <img src="chart.png" alt="歐式 21 點基本策略表" class="chart-img">
+      </figure>
+      <div class="card-panel prose">
+        <h2>代號</h2>
+        <p><b>H</b> 要牌　<b>S</b> 停牌　<b>D</b> 加倍（不能加倍就要牌）　<b>Ds</b> 加倍（不能加倍就停牌）　<b>SP</b> 分牌　<b>X/H</b> 投降（不能投降就要牌）</p>
+        <h2>練習規則</h2>
+        <p class="muted">莊家沒有底牌，玩家行動完才補牌；莊家 Blackjack 時加倍、分牌的注碼全輸。莊家軟 17 停牌。任意兩張可加倍、分牌後可加倍、只能分牌一次、分 A 只發一張。開局兩張可投降。</p>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="chart-dialog" class="chart-dialog">
+    <form method="dialog" class="dialog-bar">
+      <span>策略表</span>
+      <button class="btn ghost small-btn" value="close">關閉 <kbd>Esc</kbd></button>
+    </form>
+    <img src="chart.png" alt="歐式 21 點基本策略表" class="chart-img">
+  </dialog>
+
+  <footer class="foot muted small">
+    可加入主畫面或安裝為 App，離線也能練習。<span id="sw-status"></span>
+  </footer>
+
+  <script src="engine.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
