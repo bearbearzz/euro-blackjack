@@ -169,6 +169,20 @@
     document.querySelectorAll('.panel').forEach(p => { p.hidden = p.id !== 'tab-' + name; });
   }
 
+  // 策略表圖片載入失敗時顯示說明，而不是一片空白
+  function watchChartImages() {
+    document.querySelectorAll('.chart-img').forEach(img => {
+      const fail = () => {
+        const note = document.createElement('p');
+        note.className = 'chart-error';
+        note.textContent = '策略表圖片載入失敗。請先連上網路開啟一次，之後離線就能看。';
+        img.replaceWith(note);
+      };
+      if (img.complete && img.naturalWidth === 0) fail();
+      else img.addEventListener('error', fail);
+    });
+  }
+
   function openChart() {
     const dlg = $('chart-dialog');
     if (typeof dlg.showModal === 'function') dlg.showModal();
@@ -214,6 +228,7 @@
       else if ((k === 'enter' || k === ' ') && state.round.finished) { nextHand(); e.preventDefault(); }
     });
 
+    watchChartImages();
     registerSW();
     nextHand();
   }
